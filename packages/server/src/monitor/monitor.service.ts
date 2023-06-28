@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMonitorDto } from './dto/create-monitor.dto';
-import { UpdateMonitorDto } from './dto/update-monitor.dto';
+import { Repository } from 'typeorm';
+import { MonitorEntity } from './entities/monitor.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { IResultCountRo } from 'common/types/http';
 
 @Injectable()
 export class MonitorService {
-  create(createMonitorDto: CreateMonitorDto) {
-    return 'This action adds a new monitor';
+  constructor(
+    @InjectRepository(MonitorEntity)
+    private readonly MonitorRepository: Repository<MonitorEntity>,
+  ) {}
+
+  async create(monitor: Partial<MonitorEntity>): Promise<MonitorEntity> {
+    return await this.MonitorRepository.save(monitor);
   }
 
-  findAll() {
-    return `This action returns all monitor`;
+  async getAll(): Promise<IResultCountRo<MonitorEntity>> {
+    const [content, count] = await this.MonitorRepository.findAndCount();
+    return { content, count };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} monitor`;
-  }
-
-  update(id: number, updateMonitorDto: UpdateMonitorDto) {
-    return `This action updates a #${id} monitor`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} monitor`;
+  async getErrorById(id: string): Promise<MonitorEntity> {
+    return await this.MonitorRepository.findOne({
+      where: {
+        id,
+      },
+    });
   }
 }

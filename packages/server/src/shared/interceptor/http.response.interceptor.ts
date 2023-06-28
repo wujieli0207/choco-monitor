@@ -6,7 +6,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable, map } from 'rxjs';
-import { DefaultStatusMessage } from 'common/constant/server.enum';
+import { DefaultStatusMessage } from 'common/constant/server';
 
 @Injectable()
 export class HttpResponseInterceptor implements NestInterceptor {

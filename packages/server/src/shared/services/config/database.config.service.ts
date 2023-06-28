@@ -1,6 +1,7 @@
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
+import { MonitorEntity } from 'monitor/entities/monitor.entity';
 
 @Injectable()
 export class DatabaseConfigService implements TypeOrmOptionsFactory {
@@ -25,6 +26,8 @@ export class DatabaseConfigService implements TypeOrmOptionsFactory {
       password,
       database,
       keepConnectionAlive,
+      synchronize: false,
+      entities: [MonitorEntity],
     };
   }
 }

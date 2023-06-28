@@ -1,7 +1,10 @@
-import { Column, PrimaryColumn } from 'typeorm';
+import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
 export abstract class BaseEntity {
-  @PrimaryColumn('bigint')
+  @PrimaryGeneratedColumn('uuid', {
+    name: 'id',
+    comment: '主键',
+  })
   id!: string;
 
   @Column({
@@ -12,15 +15,19 @@ export abstract class BaseEntity {
   })
   isDeleted!: boolean;
 
-  @Column('bigint', {
+  @Column({
     name: 'create_by',
     comment: '创建人',
+    length: 255,
+    nullable: true,
   })
   createBy!: string;
 
-  @Column('bigint', {
+  @Column({
     name: 'update_by',
     comment: '更新人',
+    length: 255,
+    nullable: true,
   })
   updateBy!: string;
 

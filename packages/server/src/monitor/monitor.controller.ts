@@ -1,45 +1,30 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { MonitorService } from './monitor.service';
-import { CreateMonitorDto } from './dto/create-monitor.dto';
-import { UpdateMonitorDto } from './dto/update-monitor.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { MonitorEntity } from './entities/monitor.entity';
 
 @ApiTags('异常监控')
 @Controller('monitor')
 export class MonitorController {
   constructor(private readonly monitorService: MonitorService) {}
 
-  @ApiOperation({ summary: '保存异常信息' })
-  @Post()
-  create(@Body() createMonitorDto: CreateMonitorDto) {
-    return this.monitorService.create(createMonitorDto);
+  @ApiOperation({
+    summary: '保存异常信息',
+  })
+  @Post('create')
+  create(@Body() monitorEntity: MonitorEntity) {
+    return this.monitorService.create(monitorEntity);
   }
 
-  @Get()
-  findAll() {
-    return this.monitorService.findAll();
+  @ApiOperation({ summary: '查询全部异常信息' })
+  @Get('getAll')
+  getAll() {
+    return this.monitorService.getAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.monitorService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMonitorDto: UpdateMonitorDto) {
-    return this.monitorService.update(+id, updateMonitorDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.monitorService.remove(+id);
+  @ApiOperation({ summary: '根据 id 查询一条异常信息' })
+  @Get('getErrorById')
+  getErrorById(@Query('id') id: string) {
+    return this.monitorService.getErrorById(id);
   }
 }
