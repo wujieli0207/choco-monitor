@@ -13,6 +13,7 @@ export class MonitorController {
   })
   @Post('create')
   create(@Body() monitorEntity: MonitorEntity) {
+    console.log('Controller monitorEntity: ', monitorEntity);
     return this.monitorService.create(monitorEntity);
   }
 

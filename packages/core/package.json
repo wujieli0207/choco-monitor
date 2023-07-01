@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "wujieli",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@choco-monitor/types": "workspace:*",
+    "@choco-monitor/utils": "workspace:*"
+  }
 }

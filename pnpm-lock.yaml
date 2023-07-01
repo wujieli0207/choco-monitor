@@ -10,7 +10,14 @@ importers:
 
   packages/common: {}
 
-  packages/core: {}
+  packages/core:
+    dependencies:
+      '@choco-monitor/types':
+        specifier: workspace:*
+        version: link:../types
+      '@choco-monitor/utils':
+        specifier: workspace:*
+        version: link:../utils
 
   packages/server:
     dependencies:

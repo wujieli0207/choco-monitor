@@ -12,6 +12,7 @@ export class MonitorService {
   ) {}
 
   async create(monitor: Partial<MonitorEntity>): Promise<MonitorEntity> {
+    console.log('Service monitor: ', monitor);
     return await this.MonitorRepository.save(monitor);
   }
 
