@@ -12,7 +12,9 @@ export class MonitorService {
   ) {}
 
   async create(monitor: Partial<MonitorEntity>): Promise<MonitorEntity> {
-    console.log('Service monitor: ', monitor);
+    if (!monitor.errorTimestamp) {
+      monitor.errorTimestamp = new Date();
+    }
     return await this.MonitorRepository.save(monitor);
   }
 

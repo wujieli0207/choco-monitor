@@ -1,4 +1,4 @@
-import { IInitOptions } from '@choco-monitor/types'
+import { IInitOptions, IReportData } from '@choco-monitor/types'
 import {
   IS_BROWSER_ENV,
   Queue,
@@ -18,11 +18,11 @@ export class ReportData {
     this.uuid = generateUUID()
   }
 
-  private beaconRequest(url: string, data: unknown) {
-    return navigator.sendBeacon(url, JSON.stringify(data))
-  }
+  // private beaconRequest(url: string, data: IReportData) {
+  //   return navigator.sendBeacon(url, JSON.stringify(data))
+  // }
 
-  private imgRequest(url: string, data: unknown) {
+  private imgRequest(url: string, data: IReportData) {
     const requestFn = () => {
       const img = new Image()
       const spliceStr = url.includes('?') ? '&' : '?'
@@ -33,7 +33,7 @@ export class ReportData {
     this.queue.push(requestFn)
   }
 
-  private fetchRequest(url: string, data: unknown) {
+  private fetchRequest(url: string, data: IReportData) {
     const requestFn = () => {
       fetch(url, {
         method: 'POST',
@@ -53,21 +53,16 @@ export class ReportData {
     isBoolean(useImgReport) && (this.useImgReport = useImgReport)
   }
 
-  public resport(data: unknown) {
+  public resport(data: IReportData) {
     if (!this.dsn || !this.appKey) {
       console.error('dsn or appKey 剋空，请在 init 方法中传入')
       return
     }
 
     if (IS_BROWSER_ENV) {
-      // 优先使用 beacon 上报，否则使用 img 或者 xhr 上报
-      const result = this.beaconRequest(this.dsn, data)
-      console.log('result: ', result)
-      if (!result) {
-        this.useImgReport
-          ? this.imgRequest(this.dsn, data)
-          : this.fetchRequest(this.dsn, data)
-      }
+      this.useImgReport
+        ? this.imgRequest(this.dsn, data)
+        : this.fetchRequest(this.dsn, data)
     }
   }
 }

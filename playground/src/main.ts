@@ -13,7 +13,8 @@ app.use(router)
 
 app.use(monitor, {
   dsn: 'http://localhost:3000/api/monitor/create',
-  appKey: 'play'
+  appKey: 'play',
+  useImgReport: false
 })
 
 app.mount('#app')

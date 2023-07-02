@@ -43,7 +43,8 @@ export class MonitorEntity extends BaseEntity {
   @ApiProperty({ description: '设备信息' })
   @Column({
     name: 'device_info',
-    length: 255,
+    type: 'text',
+    nullable: true,
     comment: '设备信息，如浏览器类型、操作系统等',
   })
   deviceInfo: string;

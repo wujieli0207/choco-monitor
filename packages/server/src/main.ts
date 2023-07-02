@@ -14,6 +14,7 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalInterceptors(new HttpResponseInterceptor());
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors(); // 允许跨域
 
   // ===== 注册插件 =====
   initSwagger(app);

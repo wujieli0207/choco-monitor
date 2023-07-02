@@ -10,7 +10,6 @@ function init(options: IInitOptions) {
 function install(Vue: IVueInstance, options: IInitOptions) {
   const handler = Vue.config.errorHandler
 
-  console.log('Vue: ', Vue)
   Vue.config.errorHandler = function (
     err: Error,
     vm: IVueInstance,
@@ -18,7 +17,7 @@ function install(Vue: IVueInstance, options: IInitOptions) {
   ) {
     console.error(err, vm, info)
 
-    handleEvents.handleError(err)
+    handleEvents.handleError(err, vm, info)
     if (handler) {
       handler.apply(null, [err, vm, info])
     }
