@@ -15,6 +15,10 @@ export class MonitorService {
     if (!monitor.errorTimestamp) {
       monitor.errorTimestamp = new Date();
     }
+    if (monitor.deviceInfo) {
+      monitor.deviceInfo = JSON.stringify(monitor.deviceInfo);
+    }
+
     return await this.MonitorRepository.save(monitor);
   }
 
