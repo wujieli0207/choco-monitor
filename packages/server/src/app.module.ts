@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { resolve } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfigService } from 'shared/services/config/database.config.service';
 import { MonitorModule } from './monitor/monitor.module';
+import { RedisModule as ApiTableRedisModule } from '@apitable/nestjs-redis';
+import { redisModuleOptions } from 'shared/services/config/redis.config.services';
+import { RedisModule } from 'shared/redis/redis.module';
 
 @Module({
   imports: [
@@ -17,6 +20,12 @@ import { MonitorModule } from './monitor/monitor.module';
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConfigService,
     }),
+    // redis 配置
+    ApiTableRedisModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: () => redisModuleOptions(),
+    }),
+    RedisModule,
     MonitorModule,
   ],
   controllers: [],
