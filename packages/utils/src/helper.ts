@@ -1,3 +1,11 @@
+import { Callback } from '@choco-monitor/types'
+
+/**
+ * Generates a universally unique identifier (UUID) using the
+ * version 4 variant.
+ *
+ * @return {string} A randomly generated UUID.
+ */
 export function generateUUID(): string {
   let d = new Date().getTime()
   const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
@@ -9,4 +17,16 @@ export function generateUUID(): string {
     }
   )
   return uuid
+}
+
+/**
+ * @description 监听事件
+ */
+export function on(
+  target: any,
+  eventName: string,
+  handler: Callback,
+  options = false
+): void {
+  target.addEventListener(eventName, handler, options)
 }

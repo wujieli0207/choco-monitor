@@ -1,13 +1,14 @@
-import { IReportData, IVueInstance } from '@choco-monitor/types'
+import { IReportData } from '@choco-monitor/types'
 import reportData from './reportData'
 import { __SUPPORT__ } from '@choco-monitor/utils'
+import { EVENT_TYPES } from '@choco-monitor/common'
 
 export class HandleEvents {
-  public handleError(err: Error, vm: IVueInstance, info: string) {
+  public handleError(err: Error) {
     const errorData: IReportData = {
-      errorType: 'error',
+      errorType: EVENT_TYPES.ERROR,
       errorMessage: err.message,
-      stackTrace: err.stack!,
+      stackTrace: err.stack || '',
       url: '',
       deviceInfo: __SUPPORT__.deviceInfo,
     }

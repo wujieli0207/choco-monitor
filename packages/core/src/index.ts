@@ -1,10 +1,11 @@
 import { IInitOptions, IVueInstance } from '@choco-monitor/types'
-import reportData from './reportData'
 import handleEvents from './handleEvents'
+import { setupReplace } from './setupReplace'
+import { handleOptions } from './options'
 
 function init(options: IInitOptions) {
-  console.log('options: ', options)
-  reportData.bindOptions(options)
+  handleOptions(options)
+  setupReplace()
 }
 
 function install(Vue: IVueInstance, options: IInitOptions) {
@@ -17,7 +18,7 @@ function install(Vue: IVueInstance, options: IInitOptions) {
   ) {
     console.error(err, vm, info)
 
-    handleEvents.handleError(err, vm, info)
+    handleEvents.handleError(err)
     if (handler) {
       handler.apply(null, [err, vm, info])
     }

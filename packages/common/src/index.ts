@@ -1,1 +1,1 @@
-console.log('common')
+export * from './constant'

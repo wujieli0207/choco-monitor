@@ -1,3 +1,5 @@
+import { EVENT_TYPES } from '@choco-monitor/common'
+
 export interface IBreadcrumbData {
   [key: string]: any
 }
@@ -10,9 +12,9 @@ export interface IInitOptions {
 }
 
 export interface IReportData {
-  errorType: string // 错误类型
+  errorType: EVENT_TYPES // 错误类型
   errorMessage: string // 错误信息
-  stackTrace: string // 错误堆栈
+  stackTrace?: string // 错误堆栈
   url: string // 错误发生页面
   userId?: string // 用户标识
   deviceInfo?: IDeviceInfo // 设备信息
@@ -31,3 +33,12 @@ export interface IDeviceInfo {
   deviceType: string // 设备类型
   [key: string]: unknown
 }
+
+export type Callback = (...args: any[]) => any
+
+export interface IReplaceHandler {
+  type: EVENT_TYPES
+  callback: Callback
+}
+
+export type ReplaceCallback = (data: any) => void
