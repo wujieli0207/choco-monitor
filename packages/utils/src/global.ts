@@ -19,3 +19,4 @@ __SUPPORT__.deviceInfo = {
   device: UA_RESULT.device.model || '',
   deviceType: UA_RESULT.device.type || '',
 }
+__SUPPORT__.url = __GLOBAL__?.location?.href

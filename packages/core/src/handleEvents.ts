@@ -9,7 +9,7 @@ export class HandleEvents {
       errorType: EVENT_TYPES.ERROR,
       errorMessage: err.message,
       stackTrace: err.stack || '',
-      url: '',
+      url: __SUPPORT__.url || '',
       deviceInfo: __SUPPORT__.deviceInfo,
     }
     return reportData.resport(errorData)
