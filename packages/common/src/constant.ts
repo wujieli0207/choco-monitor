@@ -5,7 +5,7 @@ export enum EVENT_TYPES {
   ERROR = 'error',
   // FETCH = 'fetch',
   // XHR = 'xhr',
-  // UNHANDLEDREJECTION = 'unhandledrejection',
+  UNHANDLEDREJECTION = 'unhandledrejection',
   // VUE = 'vue',
   // REACT = 'react',
 }

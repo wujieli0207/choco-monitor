@@ -14,6 +14,17 @@ export class HandleEvents {
     }
     return reportData.resport(errorData)
   }
+
+  public handleUnhandledrejection(e: PromiseRejectionEvent) {
+    const errorData: IReportData = {
+      errorType: EVENT_TYPES.UNHANDLEDREJECTION,
+      errorMessage: e.reason.message,
+      stackTrace: e.reason.stack || '',
+      url: __SUPPORT__.url || '',
+      deviceInfo: __SUPPORT__.deviceInfo,
+    }
+    return reportData.resport(errorData)
+  }
 }
 
 const handleEvents = new HandleEvents()

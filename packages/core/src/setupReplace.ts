@@ -10,4 +10,12 @@ export function setupReplace(): void {
     },
     type: EVENT_TYPES.ERROR,
   })
+
+  // 捕获 unhandledrejection 错误
+  addReplaceHandler({
+    callback: (error: PromiseRejectionEvent) => {
+      handleEvents.handleUnhandledrejection(error)
+    },
+    type: EVENT_TYPES.UNHANDLEDREJECTION,
+  })
 }

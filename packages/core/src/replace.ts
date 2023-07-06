@@ -5,6 +5,7 @@ import { notify, subscribe } from './subscribe'
 
 const replaceMap = {
   [EVENT_TYPES.ERROR]: handleListenError(),
+  [EVENT_TYPES.UNHANDLEDREJECTION]: unhandledRejectionReplace(),
 }
 
 export function addReplaceHandler(handler: IReplaceHandler): void {
@@ -21,4 +22,12 @@ function handleListenError(): void {
     notify(EVENT_TYPES.ERROR, e)
   }
   on(__GLOBAL__, EVENT_TYPES.ERROR, callback, true)
+}
+
+function unhandledRejectionReplace(): void {
+  const callback = (e: PromiseRejectionEvent) => {
+    console.log('unhandledRejection: ', e)
+    notify(EVENT_TYPES.UNHANDLEDREJECTION, e)
+  }
+  on(__GLOBAL__, EVENT_TYPES.UNHANDLEDREJECTION, callback, true)
 }
